@@ -9,7 +9,10 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/space-grotesk-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080C">
+<meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Holdfast Finance">
 <meta property="og:title" content="Holdfast — Every account. One root. Your server.">
@@ -25,64 +28,247 @@
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Holdfast","alternateName":"Holdfast Finance","applicationCategory":"FinanceApplication","operatingSystem":"Linux, Docker","url":"https://holdfastfinance.app/","license":"https://www.gnu.org/licenses/agpl-3.0.html","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Open-source, self-hosted personal finance app with budgets, investments, net worth, crypto self-custody and real US bank sync."}
 </script>
 <style>
-  :root{--signal:#3DF5C8;--deepwater:#7B61FF;--abyss:#07080C;--hull:#0E1118;--text:#E8ECF4;--muted:#8A93A6;--hair:rgba(255,255,255,.08)}
+  /* Fonts: self-hosted from @fontsource 5.3.0 (SIL OFL 1.1, see /fonts/OFL-*.txt) */
+  @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/space-grotesk-latin-600-normal.woff2) format("woff2")}
+  @font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-latin-400-normal.woff2) format("woff2")}
+  @font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-latin-500-normal.woff2) format("woff2")}
+  @font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-latin-600-normal.woff2) format("woff2")}
+  @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+  @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+
+  :root{
+    color-scheme:dark;
+    --signal:#3DF5C8;--deepwater:#7B61FF;--abyss:#07080C;--hull:#0E1118;--well:#0A0C12;
+    --text:#E8ECF4;--text-soft:#C3CAD8;--text-muted:#8A93A6;
+    --signal-text:#3DF5C8;--deepwater-text:#8B74FF;--forecast-line:#B3A6FF;
+    --line:#1F2636;--line-strong:#2A3346;--focus-ring:#3DF5C8;
+    --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --display:"Space Grotesk",Inter,ui-sans-serif,system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--abyss);color:var(--text)}
-  body{min-height:100vh;display:flex;flex-direction:column;font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    background:radial-gradient(60rem 30rem at 10% -10%,rgba(61,245,200,.12),transparent 60%),radial-gradient(50rem 30rem at 110% 10%,rgba(123,97,255,.12),transparent 60%),var(--abyss)}
-  .wrap{width:100%;max-width:960px;margin:0 auto;padding:0 16px}
-  header{padding:24px 0}
-  .brand{display:flex;align-items:center;gap:10px;font:600 20px/1 "Space Grotesk",Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.02em;color:var(--text);text-decoration:none}
-  main{flex:1;display:flex;align-items:center}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--hair);border-radius:999px;background:rgba(14,17,24,.7);color:var(--muted);font:12px/1 ui-monospace,"JetBrains Mono",SFMono-Regular,Menlo,monospace}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px var(--signal)}
-  h1{margin:20px 0 16px;font:600 clamp(40px,8vw,76px)/1.02 "Space Grotesk",Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.03em}
-  h1 em{font-style:normal;color:var(--signal)}
-  p.lead{max-width:40rem;margin:0 0 28px;color:#C3C9D6;font-size:clamp(16px,2.2vw,19px)}
-  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
-  .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:10px;font-weight:600;text-decoration:none}
-  .btn.primary{background:var(--signal);color:var(--abyss);box-shadow:0 0 24px rgba(61,245,200,.25)}
-  .btn.ghost{background:var(--hull);color:var(--text);border:1px solid var(--hair)}
-  .btn:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
-  code{display:inline-block;max-width:100%;overflow-x:auto;padding:12px 16px;border:1px solid var(--hair);border-radius:10px;background:rgba(7,8,12,.8);font:14px/1.4 ui-monospace,"JetBrains Mono",SFMono-Regular,Menlo,monospace;color:var(--muted);white-space:nowrap}
-  code b{color:var(--signal);font-weight:500}
-  ul.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:0;margin:40px 0 0;list-style:none}
-  ul.points li{padding:16px;border:1px solid var(--hair);border-radius:12px;background:rgba(14,17,24,.7);color:#C3C9D6;font-size:14px}
-  ul.points strong{display:block;color:var(--text);font-family:"Space Grotesk",Inter,sans-serif;margin-bottom:4px}
-  footer{padding:32px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--hair);margin-top:48px}
-  footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
-  footer a{color:var(--muted)}
+  html{background:var(--abyss);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;min-height:100vh;background:var(--abyss);color:var(--text);font:16px/1.6 var(--sans);position:relative;overflow-x:clip}
+  a{color:var(--text);text-decoration:none}
+  a:hover{color:var(--signal-text)}
+  :focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px;border-radius:6px}
+  .skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--signal);color:var(--abyss);font-weight:600}
+  .skip:focus{top:12px;color:var(--abyss)}
+
+  /* Background: faint 64px grid + top Signal/Deepwater glow */
+  .bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .bg::before{content:"";position:absolute;width:900px;height:900px;left:50%;top:-480px;margin-left:-450px;border-radius:50%;
+    background:radial-gradient(circle,rgba(61,245,200,.20) 0%,rgba(123,97,255,.10) 40%,rgba(7,8,12,0) 70%)}
+  .bg::after{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:64px 64px}
+
+  .wrap{position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+
+  /* Sticky nav */
+  .top{position:sticky;top:0;z-index:50;background:rgba(7,8,12,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid transparent}
+  .top .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px}
+  .brand{display:flex;align-items:center;gap:10px;min-height:44px}
+  .brand span{font:600 22px/1 var(--display);letter-spacing:-.03em}
+  .brand:hover{color:var(--text)}
+  nav ul{display:flex;flex-wrap:wrap;gap:4px 12px;margin:0;padding:0;list-style:none;font-size:15px}
+  nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8px;color:var(--text-soft)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;font-weight:500;font-size:16px;white-space:nowrap;transition:box-shadow .2s,background-color .2s,border-color .2s}
+  .btn-outline{min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line-strong);background:rgba(255,255,255,.03);font-size:14px}
+  .btn-outline:hover{border-color:#3A4560}
+  .btn-lg{min-height:52px;padding:0 26px}
+  .btn-primary{background:var(--signal);color:var(--abyss);font-weight:600;box-shadow:0 0 36px rgba(61,245,200,.40)}
+  .btn-primary:hover{color:var(--abyss);box-shadow:0 0 48px rgba(61,245,200,.55)}
+  .btn-secondary{border:1px solid var(--line-strong);background:rgba(255,255,255,.03)}
+  .btn-secondary:hover{border-color:#3A4560}
+
+  section{scroll-margin-top:96px}
+  [id]{scroll-margin-top:96px}
+
+  /* Hero */
+  .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;padding:112px 0 64px}
+  .pill{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:6px 14px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(14,17,24,.8);font:13px/1.4 var(--mono);color:var(--text-soft)}
+  .dot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px var(--signal)}
+  h1{margin:0;max-width:960px;font:600 clamp(44px,7vw,88px)/1 var(--display);letter-spacing:-.045em}
+  .accent{color:var(--signal-text)}
+  .lead{margin:0;max-width:680px;font-size:20px;line-height:1.55;color:var(--text-soft)}
+  .ctas{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .cmd{max-width:100%;overflow-x:auto;font:15px/1.5 var(--mono);background:rgba(5,6,10,.9);border:1px solid var(--line);border-radius:12px;padding:14px 20px;color:var(--text-soft);white-space:nowrap}
+  .cmd .ps{color:var(--text-muted);user-select:none}
+  .cmd b{font-weight:500;color:var(--signal-text)}
+
+  /* Demo strip */
+  .demo{padding:0 0 96px}
+  .glass{border-radius:24px;padding:1px;background:linear-gradient(140deg,rgba(61,245,200,.6),rgba(123,97,255,.45) 50%,rgba(31,38,54,.6))}
+  .glass-in{border-radius:23px;background:var(--well);padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .tile{background:var(--hull);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px}
+  .tile-label{font-size:13px;color:var(--text-muted)}
+  .money{font:500 34px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+  .tile svg{display:block;width:100%}
+  .tile-note{font-size:13px;color:var(--text-soft)}
+  .quote{margin:0;font-size:15px;line-height:1.5;color:var(--text)}
+  .chip{display:inline-flex;align-self:flex-start;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:rgba(61,245,200,.12);color:var(--signal-text);font-size:13px;font-weight:500}
+
+  /* Features */
+  .features{padding:0 0 96px;display:flex;flex-direction:column;gap:32px}
+  .eyebrow{font:13px/1.4 var(--mono);letter-spacing:.1em;color:var(--signal-text)}
+  .features header{display:flex;flex-direction:column;gap:12px;max-width:720px}
+  h2{margin:0;font:600 clamp(32px,4.5vw,52px)/1.05 var(--display);letter-spacing:-.035em}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin:0;padding:0;list-style:none}
+  .card{background:rgba(14,17,24,.8);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px}
+  .card.hi{background:linear-gradient(160deg,rgba(61,245,200,.10),rgba(123,97,255,.10)),var(--abyss);border-color:var(--line-strong)}
+  .card svg{flex:none}
+  h3{margin:0;font:600 22px/1.3 var(--display)}
+  .card p{margin:0;font-size:15px;line-height:1.55;color:var(--text-soft)}
+
+  /* CTA panel */
+  .cta{padding:0 0 96px}
+  .panel{border:1px solid var(--line);border-radius:24px;background:rgba(14,17,24,.8);padding:48px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}
+  .panel h2{font-size:clamp(30px,4vw,48px)}
+  .panel p{margin:0;font-size:18px;line-height:1.55;color:var(--text-soft);max-width:560px}
+  .panel .fine{font-size:14px;color:var(--text-muted)}
+
+  footer{position:relative;z-index:1}
+  .foot{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;padding:32px 0 48px;border-top:1px solid var(--line);font-size:14px;color:var(--text-muted)}
+  .foot a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0;color:var(--text-muted);text-decoration:underline;text-underline-offset:3px}
+  .foot a:hover{color:var(--signal-text)}
+
+  @media (max-width:720px){
+    .wrap{padding:0 16px}
+    .top .wrap{gap:0 12px;padding-top:6px;padding-bottom:4px}
+    .top nav{order:3;width:100%}
+    nav ul{gap:0 4px;margin-left:-8px}
+    .top .btn-outline{order:2}
+    section,[id]{scroll-margin-top:120px}
+    .hero{padding:48px 0 56px;gap:24px}
+    .lead{font-size:18px}
+    .ctas{flex-direction:column;align-items:center}
+    .cmd{font-size:14px;padding:14px 16px}
+    .glass-in{padding:16px;gap:16px}
+    .grid{grid-template-columns:1fr}
+    .card{padding:24px}
+    .panel{padding:40px 20px}
+    .demo,.features,.cta{padding-bottom:72px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition:none!important;animation:none!important}
+  }
 </style>
 </head>
 <body>
-<header class="wrap">
-  <a class="brand" href="/" aria-label="Holdfast home">
-    <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="#3DF5C8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="11" r="5.5"/><path d="M24 16.5V31"/><path d="M24 31C20 33 15 35 10 38.5"/><path d="M24 31C28 33 33 35 38 38.5"/><path d="M24 31V40"/></g></svg>
-    holdfast
-  </a>
+<a class="skip" href="#main">Skip to content</a>
+<div class="bg" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Holdfast home">
+      <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="14" r="6" fill="none" stroke="#3DF5C8" stroke-width="5"/><path d="M32 20 V40 M32 40 C32 46 24 48 15 53 M32 40 V55 M32 40 C32 46 40 48 49 53" stroke="#3DF5C8" stroke-width="5" stroke-linecap="round" fill="none"/></svg>
+      <span>holdfast</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#crypto">Crypto</a></li>
+        <li><a href="#selfhost">Self-host</a></li>
+        <li><a href="#early-access">Early access</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-outline" href="https://github.com/holdfast-finance">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+  </div>
 </header>
-<main class="wrap">
-  <section>
-    <span class="pill"><span class="dot"></span>Open source · AGPL-3.0 · self-hosted · in development</span>
-    <h1>Every account.<br>One root. <em>Your server.</em></h1>
-    <p class="lead">Banks, cards, 401(k), HSA, brokerage and crypto in one app you run yourself, with sync health you can see, honest forecasts and a private AI advisor that never leaves your hardware.</p>
-    <div class="cta">
-      <a class="btn primary" href="mailto:hello@holdfastfinance.app?subject=Holdfast%20early%20access">Get early access</a>
-      <a class="btn ghost" href="https://github.com/holdfast-finance">GitHub</a>
+
+<main id="main" class="wrap">
+  <section id="top" class="hero">
+    <div class="pill"><span class="dot" aria-hidden="true"></span>Open source · AGPL-3.0 · self-hosted · in development</div>
+    <h1>Every account.<br>One root. <span class="accent">Your server.</span></h1>
+    <p class="lead">Banks, cards, 401(k), HSA, brokerage and crypto — with hardware-wallet self-custody, honest forecasts and a private AI advisor that never leaves your hardware.</p>
+    <div class="ctas">
+      <a class="btn btn-lg btn-primary" href="mailto:hello@holdfastfinance.app?subject=Holdfast%20early%20access">Get early access</a>
+      <a class="btn btn-lg btn-secondary" href="https://github.com/holdfast-finance">Follow on GitHub</a>
     </div>
-    <code>$ docker compose up -d <b>holdfast</b></code>
-    <ul class="points">
-      <li><strong>Banks &amp; cards</strong>Plaid with your own keys, or SimpleFIN. Full history imported from statements, reconciled to the penny.</li>
-      <li><strong>Crypto &amp; cold storage</strong>Watch-only by default. Your hardware wallet signs and the server never sees your keys.</li>
-      <li><strong>Private AI advisor</strong>Claude, a local model through Ollama, or any compatible endpoint. Redacted, read-only, every call visible.</li>
+    <div class="cmd" role="group" aria-label="Self-host command"><span class="ps">$</span> docker compose up -d <b>holdfast</b></div>
+  </section>
+
+  <section id="demo" class="demo" aria-label="Product preview (illustrative, demo data)">
+    <div class="glass">
+      <div class="glass-in">
+        <div class="tile">
+          <div class="tile-label">Net worth · demo data</div>
+          <div class="money">$[NET WORTH]</div>
+          <svg height="70" viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 58 C40 54 60 46 100 48 C140 50 160 34 200 30 C240 26 260 16 300 10 L300 70 L0 70 Z" fill="rgba(61,245,200,0.12)"/><path d="M0 58 C40 54 60 46 100 48 C140 50 160 34 200 30 C240 26 260 16 300 10" fill="none" stroke="#3DF5C8" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg>
+        </div>
+        <div class="tile">
+          <div class="tile-label">90-day cash forecast</div>
+          <svg height="96" viewBox="0 0 300 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50 C60 44 120 38 180 40 C230 42 260 30 300 26 L300 66 C260 72 230 76 180 74 C120 72 60 62 0 56 Z" fill="rgba(123,97,255,0.22)"/><path d="M0 53 C60 52 120 55 180 57 C230 58 260 48 300 46" fill="none" stroke="#B3A6FF" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg>
+          <div class="tile-note">P10 – P90 band · backtested</div>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Advisor · runs locally</div>
+          <p class="quote">“You have room to add to your HSA this year. Want me to model the tax impact?”</p>
+          <span class="chip">Model it</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features" aria-labelledby="features-h">
+    <header>
+      <div class="eyebrow">ALL-IN-ONE</div>
+      <h2 id="features-h">Your whole financial life, self-custodied.</h2>
+    </header>
+    <ul class="grid">
+      <li class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3DF5C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18M5 10v8M9 10v8M15 10v8M19 10v8M2 21h20M12 3l9 5H3z"/></svg>
+        <h3>Banks &amp; cards</h3>
+        <p>Plaid with your own keys, or SimpleFIN. Sync health you can actually see, and full history imported from statements.</p>
+      </li>
+      <li class="card" id="crypto">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B3A6FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 7h6M12 14v3"/><circle cx="12" cy="12" r="0.5"/></svg>
+        <h3>Crypto &amp; cold storage</h3>
+        <p>Exchanges via read-only keys. Ledger, Trezor, Coldcard, Jade and Keystone over USB, QR or microSD. Keys never touch the server.</p>
+      </li>
+      <li class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3DF5C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"/><path d="M14 7h6v6"/></svg>
+        <h3>Forecasts that show their work</h3>
+        <p>Cash-flow bands, what-if scenarios and published backtest accuracy. Free, not a premium tier.</p>
+      </li>
+      <li class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B3A6FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a7 7 0 0 0-4 12.7V19h8v-3.3A7 7 0 0 0 12 3z"/><path d="M10 22h4"/></svg>
+        <h3>Private AI advisor</h3>
+        <p>Bring your own model: Claude, a local model via Ollama, or any compatible endpoint. Redacted, read-only, every tool call visible.</p>
+      </li>
+      <li class="card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3DF5C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <h3>Taxes, year-round</h3>
+        <p>Optional self-host module: relief scanner, crypto cost basis per wallet, 1099-DA reconciliation and a filing-ready package.</p>
+      </li>
+      <li class="card hi" id="selfhost">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3DF5C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="7" rx="2"/><rect x="2" y="13" width="20" height="7" rx="2"/><path d="M6 7.5h.01M6 16.5h.01"/></svg>
+        <h3>Runs on your metal</h3>
+        <p>Docker on a home server, Unraid or Umbrel. Private behind Tailscale on your own domain. Installable on your phone.</p>
+      </li>
     </ul>
   </section>
+
+  <section id="early-access" class="cta" aria-labelledby="cta-h">
+    <div class="panel">
+      <h2 id="cta-h">Hold fast.</h2>
+      <p>Free forever to self-host. Your data never leaves your server unless you send it.</p>
+      <a class="btn btn-lg btn-primary" href="mailto:hello@holdfastfinance.app?subject=Holdfast%20early%20access">Get early access</a>
+      <p class="fine">Holdfast is in development. Write to us and we’ll tell you when it’s ready to run.</p>
+    </div>
+  </section>
 </main>
-<footer class="wrap">
-  <div class="row">
-    <span>Holdfast · AGPL-3.0 · <a href="mailto:hello@holdfastfinance.app">hello@holdfastfinance.app</a></span>
+
+<footer>
+  <div class="wrap"><div class="foot">
+    <span>holdfast · AGPL-3.0 · <a href="mailto:hello@holdfastfinance.app">hello@holdfastfinance.app</a></span>
     <span>Not a bank. Not a CPA. Your software, your data.</span>
-  </div>
+  </div></div>
 </footer>
 </body>
 </html>
