@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0E1118"/><g fill="none" stroke="#3DF5C8" stroke-width="4.5" stroke-linecap="round"><circle cx="32" cy="15" r="6"/><path d="M32 21v22M32 43l-13 9M32 43l13 9M32 43v10"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="holdfast">
+  <title>holdfast</title>
+  <!-- Glow variant: mark in Signal (#3DF5C8) on Hull (#0E1118) with a soft Signal glow. -->
+  <defs>
+    <filter id="hf-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="48" height="48" rx="11" fill="#0E1118"/>
+  <g transform="translate(24 24) scale(0.78) translate(-24 -23)" fill="none" stroke="#3DF5C8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#hf-glow)">
+    <circle cx="24" cy="11" r="5.5"/>
+    <path d="M24 16.5V31"/>
+    <path d="M24 31C20 33 15 35 10 38.5"/>
+    <path d="M24 31C28 33 33 35 38 38.5"/>
+    <path d="M24 31V40"/>
+  </g>
+</svg>
